@@ -2,11 +2,11 @@
  * Animator.js
  * Class to animate objects inside the draw function
  * Author: Juan Ibara <juanibarral@gmail.com>
- * @param params <object> Object to setup the animator:
- * duration <number> (mandatory): Duration in milliseconds
- * values <array> (mandatory): Array of objects with start and end values
- * function <function> (mandatory): function that will use the values to setup the objects
- * noLoop <boolean> (Optional): If the animation will loop or not
+ * params <object> Object to setup the animator:
+ *   duration <number> (mandatory): Duration in milliseconds
+ *   values <array> (mandatory): Array of objects with start and end values
+ *   animation <function> (mandatory): function that will use the values to animate
+ *   noLoop <boolean> (Optional): If the animation will loop or not
  */
 class Animator {
   constructor(params) {
@@ -15,7 +15,7 @@ class Animator {
     this.duration = params.duration ? params.duration : 5000
     this.values = params.values
     this.started = 0
-    this.func = params.function
+    this.animation = params.animation
     this.noLoop = params.noLoop
   }
 
@@ -43,8 +43,8 @@ class Animator {
       const val = this.values[each];
       const value = map(elapsed, 0, this.duration, val.start, val.end);
       stepValues.push(value);
-    };
+    }
 
-    this.func(stepValues);
+    this.animation(stepValues);
   }
 }
